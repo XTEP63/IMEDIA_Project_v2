@@ -62,29 +62,75 @@ Reddit API → [RAW] NDJSON (as-is) → [BRONZE] Parquet (tipado/flatten) → [S
 
 ## 6) Estructura del repositorio
 ```
-imedia/
+IMEDIA_PROJECT_V2/
 ├─ pyproject.toml
-├─ .env.example
 ├─ README.md
+├─ uv.lock
+├─ LICENSE
+├─ .gitignore
+├─ .env
+├─ .env.example
+├─ .venv/                              # (entorno local, opcional)
+├─ imedia.egg-info/
+├─ src/
+│  └─ imedia/                          # código fuente (CLI, clientes, transformadores)
+├─ notebooks/
+│  ├─ 00_informe_final.ipynb
+│  ├─ 01_eda_inicial.ipynb
+│  ├─ 02_data_wrangling.ipynb
+│  └─ 03-training_model.ipynb
 ├─ db/
-│  └─ imedia.sqlite
-└─ data/
-   ├─ raw/reddit/
-   │  ├─ posts/part-<batch>-[subreddit].ndjson
-   │  ├─ comments/part-<batch>-[post_id].ndjson
-   │  ├─ subreddits/part-<batch>-[subreddit].ndjson
-   │  └─ hot_sublists/part-<batch>-<estrategia>.ndjson
-   ├─ bronze/reddit/
-   │  ├─ posts/YYY=…/MM=…/DD=…/posts__<batch>__<subreddit>.parquet
-   │  ├─ comments/YYY=…/MM=…/DD=…/comments__<batch>__<post_id>.parquet
-   │  ├─ subreddits/subreddits-<batch>-<subreddit>.parquet
-   │  └─ hot_sublists/hot_sublists-<batch>-<uid>.parquet
-   └─ silver/reddit/
-      ├─ dim_subreddit.parquet
-      ├─ dim_author.parquet
-      ├─ fact_posts.parquet
-      └─ fact_comments.parquet
+│  └─ imedia.sqlite                    # SILVER en SQLite (dims/facts) para consultas rápidas
+├─ data/
+│  ├─ raw/
+│  │  └─ reddit/
+│  │     ├─ posts/part-<batch>-[subreddit].ndjson
+│  │     ├─ comments/part-<batch>-[post_id].ndjson
+│  │     ├─ subreddits/part-<batch>-[subreddit].ndjson
+│  │     └─ hot_sublists/part-<batch>-<estrategia>.ndjson
+│  ├─ bronze/
+│  │  └─ reddit/
+│  │     ├─ posts/YYY=…/MM=…/DD=…/posts__<batch>__<subreddit>.parquet
+│  │     ├─ comments/YYY=…/MM=…/DD=…/comments__<batch>__<post_id>.parquet
+│  │     ├─ subreddits/subreddits-<batch>-<subreddit>.parquet
+│  │     └─ hot_sublists/hot_sublists-<batch>-<uid>.parquet
+│  ├─ silver/
+│  │  └─ reddit/
+│  │     ├─ dim_author.parquet
+│  │     ├─ dim_subreddit.parquet
+│  │     ├─ fact_comments.parquet
+│  │     └─ fact_posts.parquet
+│  └─ processed/                       # datasets listos para modelado/validación
+│     ├─ train_posts_clean.csv
+│     └─ test_posts_clean.csv
+└─ preprocesador/                      # REGISTRY de preprocesadores (Pipeline sklearn)
+   ├─ elasticnet_preprocessor_20251111_234152/
+   │  ├─ MLmodel
+   │  ├─ model.pkl                     # objeto Pipeline/ColumnTransformer serializado
+   │  ├─ conda.yaml
+   │  ├─ python_env.yaml
+   │  └─ requirements.txt
+   └─ random_forest_preprocessor_20251111_234129/
+      ├─ MLmodel
+      ├─ model.pkl
+      ├─ conda.yaml
+      ├─ python_env.yaml
+      └─ requirements.txt
 ```
+
+# Flujo (resumen)
+Reddit API
+```
+  → data/raw/reddit (NDJSON, as-is)
+  → data/bronze/reddit (Parquet tipado/flatten, particionado por fecha)
+  → data/silver/reddit + db/imedia.sqlite (dims/facts normalizados)
+  → data/processed/train_posts_clean.csv y test_posts_clean.csv (wrangling + splits)
+  → preprocesador/<modelo>_* (artifact del preprocesador: Pipeline/ColumnTransformer registrado)
+```
+
+# Notas
+- La carpeta **preprocesador/** guarda el *pipeline de preprocesamiento completo* (con ambiente reproducible) por ejecución/modelo solo de los 2 mejores entre los 3 que se hicieron.
+- **processed/** contiene los datasets finales para entrenamiento/evaluación (coherentes con el preprocesador registrado).
 
 ### Código fuente (src/)
 - `config.py` — rutas, batch id, env vars
