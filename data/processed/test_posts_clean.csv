@@ -1,173 +1,310 @@
 num_comments_capped,recency_days,dayofweek,title_len,selftext_len,is_self,month,link_flair_text,subreddit,author,score_clipped
-1844,0.17569444444444443,1,136,0,0,11,possible paywall,politics,other,888.5
-1,0.9535532407407408,0,52,0,0,11,music,music,other,3.0
-0,0.39511574074074074,1,35,0,0,11,music,music,other,1.0
-38,0.07681712962962962,1,140,522,1,11,other,movies,other,9.0
-40,46.91835648148148,3,67,0,0,9,unknown,funny,other,888.5
-12,0.8894675925925926,0,43,204,1,11,discussion,music,other,0.0
-4,0.9627546296296297,0,88,768,1,11,discussion,music,other,0.0
-19,0.9182291666666667,0,81,0,0,11,no paywall,politics,other,8.0
-26,0.32394675925925925,1,59,221,1,11,discussion,music,other,0.0
-0,0.12418981481481481,1,86,0,0,11,music,music,other,6.0
-8,0.11393518518518518,1,68,0,0,11,possible paywall,politics,snoograpes2950,369.0
-70,0.18555555555555556,1,123,0,0,11,no paywall,politics,other,888.5
-187,46.68518518518518,3,136,0,0,9,unknown,interestingasfuck,other,888.5
-0,0.3091319444444444,1,18,1846,1,11,discussion,music,other,0.0
-13,0.8814930555555556,0,78,0,0,11,no paywall,politics,other,111.0
-2,0.8648148148148148,0,38,2396,1,11,video,music,other,4.0
-2,0.8908680555555556,0,58,0,0,11,article,music,other,0.0
-305,46.75443287037037,3,27,0,0,9,unknown,interestingasfuck,other,888.5
-37,0.65625,1,175,0,0,11,possible paywall,politics,other,118.0
-71,0.10173611111111111,1,68,0,0,11,no paywall,politics,other,120.0
-1544,0.7434259259259259,0,38,207,1,11,discussion,music,other,255.0
-0,0.894074074074074,0,41,0,0,11,music,music,other,0.0
-0,0.5999421296296297,1,25,0,0,11,article,music,other,0.0
-272,46.825891203703705,3,46,0,0,9,unknown,publicfreakout,other,888.5
-23,0.7954050925925926,0,55,0,0,11,no paywall,politics,other,91.0
-0,0.8638425925925926,0,71,0,0,11,music,music,other,1.0
-1,0.9567592592592593,0,119,0,0,11,news,movies,other,4.0
-132,46.07915509259259,4,90,0,0,9,unknown,pics,other,888.5
-33,46.483391203703704,4,54,0,0,9,video,damnthatsinteresting,other,888.5
-1103,46.84142361111111,3,63,0,1,9,unknown,askreddit,other,888.5
-2,0.6829282407407408,0,44,0,0,11,music,music,other,2.0
-0,0.044363425925925924,1,52,0,0,11,artwork,art,other,6.0
-37,0.5682870370370371,1,53,316,1,11,discussion,movies,other,13.0
-0,0.9238310185185186,0,41,0,0,11,article,music,other,2.0
-0,46.72430555555555,3,20,41,0,9,unknown,livestreamfail,other,0.0
-97,45.94140046296296,4,77,0,0,9,other,livestreamfail,other,569.0
-0,0.2856828703703704,1,42,0,0,11,music,music,other,2.0
-3,46.86924768518519,3,39,442,0,9,unknown,home,other,3.0
-30,0.7585879629629629,0,103,0,0,11,no paywall,politics,other,663.0
-271,0.9836226851851851,0,56,0,0,11,possible paywall,politics,other,888.5
-65,46.639143518518516,4,38,26,0,9,unknown,funny,other,124.0
-0,0.5640277777777778,1,54,0,0,11,music,music,other,3.0
-10,46.735983796296296,3,72,0,0,9,video,palworld,other,97.0
-0,0.9048263888888889,0,19,491,1,11,discussion,music,other,0.0
-9,0.7680671296296296,0,13,345,1,11,discussion,movies,other,0.0
-3,46.913900462962964,3,43,111,1,9,question,palworld,other,6.0
-851,46.61965277777778,4,32,263,1,9,unknown,nostupidquestions,other,888.5
-8,0.5430671296296297,1,74,0,0,11,possible paywall,politics,other,36.0
-3,0.7163425925925926,0,33,0,0,11,music,music,other,1.0
-3,46.74517361111111,3,67,2154,1,9,discussion,python,other,5.0
-9,0.5778935185185186,1,66,0,0,11,no paywall,politics,other,25.0
-26,0.9588425925925926,0,66,0,0,11,possible paywall,politics,other,30.0
-2,0.38980324074074074,1,35,0,0,11,artwork,art,other,0.0
-0,0.05201388888888889,1,25,0,0,11,other,music,other,0.0
-11,0.8504166666666667,0,88,0,0,11,no paywall,politics,namelessresearcher,303.0
-4,0.5365277777777778,1,60,332,1,11,discussion,music,other,0.0
-1,0.884525462962963,0,36,0,0,11,music,music,other,0.0
-0,0.9165625,0,25,0,0,11,article,music,other,0.0
-18,0.8862037037037037,0,83,0,0,11,no paywall,politics,other,116.0
-372,0.7293518518518518,0,55,0,0,11,news,movies,other,888.5
-0,0.693125,0,49,0,0,11,artwork,art,other,1.0
-0,0.9578703703703704,0,70,0,0,11,music,music,other,4.0
-352,46.206608796296294,4,55,671,1,9,other,baldursgate3,other,888.5
-29,46.887962962962966,3,41,0,0,9,unknown,pics,other,138.0
-6,46.721493055555555,3,22,0,0,9,other,livestreamfail,other,0.0
-0,0.1694675925925926,1,53,0,0,11,music,music,other,3.0
-137,0.8967824074074074,0,83,0,0,11,no paywall,politics,other,888.5
-13,0.028923611111111112,1,65,0,0,11,no paywall,politics,other,13.0
-64,0.871712962962963,0,99,0,0,11,possible paywall,politics,other,0.0
-9,0.05255787037037037,1,86,0,0,11,possible paywall,politics,other,81.0
-1525,0.095625,1,215,1141,0,11,other,movies,other,888.5
-25,0.9030787037037037,0,33,0,0,11,no paywall,politics,other,252.0
-163,0.7813773148148148,0,65,0,0,11,possible paywall,politics,other,888.5
-21,46.66474537037037,4,61,0,0,9,unknown,interestingasfuck,other,888.5
-42,0.5310185185185186,1,56,0,0,11,possible paywall,politics,other,163.0
-78,46.27796296296296,4,140,0,1,9,unknown,nostupidquestions,other,581.0
-0,0.19118055555555555,1,65,529,1,11,discussion,music,other,0.0
-0,0.8514814814814815,0,71,0,0,11,music,music,other,2.0
-4,0.18810185185185185,1,35,737,1,11,discussion,music,other,0.0
-0,0.020497685185185185,1,65,0,0,11,article,music,other,1.0
-86,46.198680555555555,4,75,0,0,9,other,livestreamfail,other,549.0
-4,0.8843287037037038,0,69,0,0,11,article,music,other,0.0
-1,0.910787037037037,0,66,0,0,11,artwork,art,other,11.0
-2,46.82083333333333,3,2,0,0,9,other,baldursgate3,other,145.0
-21,46.28337962962963,4,55,0,0,9,other,baldursgate3,other,182.0
-17,0.968761574074074,0,31,0,0,11,artwork,art,other,625.0
-51,0.9253703703703704,0,83,0,0,11,no paywall,politics,other,179.0
-12,0.3303935185185185,1,41,1865,1,11,unknown,books,other,30.0
-169,46.79052083333333,3,28,0,1,9,unknown,nostupidquestions,other,840.0
-0,0.7184027777777777,0,42,0,0,11,music,music,other,1.0
-12,0.5793865740740741,1,104,0,0,11,no paywall,politics,snoograpes2950,28.0
-91,0.24086805555555554,1,54,0,0,11,no paywall,politics,other,0.0
-338,46.97371527777778,3,159,0,0,9,image,damnthatsinteresting,other,888.5
-53,0.7708796296296296,0,68,0,0,11,no paywall,politics,other,69.0
-0,0.0640625,1,49,0,0,11,artwork,art,other,4.0
-565,46.12628472222222,4,21,0,0,9,:misc: 🇲​🇮​🇸​🇨​,facepalm,other,888.5
-105,0.663599537037037,1,51,0,0,11,possible paywall,politics,other,374.0
-16,0.8953240740740741,0,44,944,1,11,discussion,music,other,1.0
-0,46.333900462962966,4,44,407,1,9,news,python,other,9.0
-8,0.9132407407407407,0,74,0,0,11,no paywall,politics,other,20.0
-12,0.6871643518518519,0,47,0,0,11,possible paywall,politics,other,64.0
-110,46.5171412037037,4,113,0,0,9,unknown,publicfreakout,other,219.0
-297,0.6002199074074074,1,54,0,0,11,possible paywall,politics,other,888.5
-29,0.13127314814814814,1,24,930,1,11,discussion,movies,other,0.0
-0,46.87596064814815,3,86,345,1,9,discussion,python,other,3.0
-2,46.845787037037034,3,70,0,0,9,unknown,funny,other,0.0
-91,0.5841203703703703,1,32,0,0,11,paywall,politics,other,25.0
-46,0.9322800925925926,0,73,603,1,11,discussion,movies,other,0.0
-51,46.08677083333333,4,31,378,0,9,unknown,home,other,25.0
-17,46.17753472222222,4,60,0,0,9,other,damnthatsinteresting,other,317.0
-1,0.9055787037037037,0,41,0,0,11,other,music,other,0.0
-4,0.8077430555555556,0,52,0,0,11,music,music,other,3.0
-26,0.44306712962962963,1,106,403,1,11,discussion,movies,other,0.0
-50,0.7716782407407408,0,300,0,0,11,news,movies,other,432.0
-146,0.6866898148148148,0,96,0,0,11,possible paywall,politics,other,857.0
-12,0.3455324074074074,1,52,458,1,11,discussion,movies,other,0.0
-72,0.6569212962962963,1,37,0,0,11,possible paywall,politics,other,888.5
-0,0.7916782407407408,0,33,0,0,11,artwork,art,other,35.0
-160,0.1776851851851852,1,54,0,0,11,possible paywall,politics,other,888.5
-0,0.25741898148148146,1,41,0,0,11,music,music,other,2.0
-22,0.48716435185185186,1,85,0,0,11,no paywall,politics,other,115.0
-2275,46.692696759259256,3,68,0,1,9,unknown,askreddit,other,888.5
-21,0.15359953703703705,1,149,1515,1,11,discussion,movies,other,0.0
-0,0.49594907407407407,1,53,0,0,11,artwork,art,other,17.0
-3,0.024270833333333332,1,86,0,0,11,possible paywall,politics,other,34.0
-1,0.051875,1,35,0,0,11,article,music,other,0.0
-883,46.74407407407407,3,40,0,0,9,unknown,publicfreakout,other,888.5
-22,0.8006481481481481,0,94,0,0,11,no paywall,politics,other,126.0
-2,0.575300925925926,1,21,0,0,11,trailer,movies,other,0.0
-6,45.925381944444446,4,43,225,0,9,unknown,home,other,3.0
-2,46.81546296296296,3,78,1018,1,9,showcase,python,other,2.0
-0,0.15688657407407408,1,52,0,0,11,music,music,other,0.0
-25,0.8581597222222223,0,29,205,0,11,trailer,movies,other,86.0
-61,0.10215277777777777,1,114,0,0,11,no paywall,politics,other,313.0
-72,46.057118055555556,4,46,0,0,9,video,damnthatsinteresting,other,888.5
-12,0.6700231481481481,1,80,0,0,11,no paywall,politics,other,520.0
-9,0.34836805555555556,1,127,240,1,11,discussion,music,other,0.0
-0,0.33296296296296296,1,57,0,0,11,music,music,other,1.0
-114,0.22819444444444445,1,57,675,1,11,question,movies,other,74.0
-0,0.2008912037037037,1,42,0,0,11,music,music,other,1.0
-54,0.08799768518518518,1,64,0,0,11,no paywall,politics,other,888.5
-20,0.5908217592592593,1,78,0,0,11,no paywall,politics,other,21.0
-343,46.63064814814815,4,67,0,1,9,unknown,askreddit,other,871.0
-6,46.88760416666667,3,35,0,0,9,unknown,funny,other,0.0
-0,0.752974537037037,0,37,0,0,11,music,music,other,1.0
-0,0.20974537037037036,1,45,0,0,11,music,music,other,1.0
-1,0.8440972222222223,0,72,305,1,11,discussion,movies,other,0.0
-4,0.9612268518518519,0,21,371,1,11,discussion,music,other,0.0
-5,46.51898148148148,4,91,0,0,9,arts/crafts,pics,other,171.0
-992,46.808483796296294,3,96,0,0,9,other,publicfreakout,other,888.5
-4,0.17422453703703702,1,41,0,0,11,news,movies,other,0.0
-16,46.55045138888889,4,71,0,0,9,unknown,interestingasfuck,other,269.0
-160,0.746550925925926,0,207,0,0,11,no paywall,politics,other,888.5
-29,0.5191435185185185,1,48,0,0,11,paywall,politics,other,33.0
-8,46.622199074074075,4,37,6,0,9,unknown,funny,other,77.0
-0,0.45730324074074075,1,93,0,0,11,news,movies,other,0.0
-1,0.47800925925925924,1,9,0,0,11,article,music,other,0.0
-17,0.7176851851851852,0,54,0,0,11,media,movies,other,19.0
-151,46.042800925925924,4,95,0,0,9,unknown,interestingasfuck,other,888.5
-18,0.5941203703703704,1,44,0,0,11,possible paywall,politics,other,12.0
-0,0.158125,1,69,0,0,11,artwork,art,other,0.0
-0,0.8196064814814815,0,59,1254,1,11,article,music,other,1.0
-26,46.280405092592595,4,60,0,0,9,meme,baldursgate3,other,214.0
-1,0.8282175925925926,0,101,0,0,11,no paywall,politics,other,9.0
-0,0.04804398148148148,1,62,0,0,11,music,music,other,0.0
-24,0.9142476851851852,0,27,0,0,11,media,movies,noculture3505,136.0
-55,0.5171180555555556,1,49,331,1,11,question,movies,other,3.0
-263,46.911261574074075,3,157,0,1,9,unknown,nostupidquestions,other,737.0
-46,0.8006597222222223,0,29,0,0,11,no paywall,politics,other,476.0
-2,0.9550578703703704,0,115,0,0,11,news,movies,other,0.0
-6,0.9718055555555556,0,63,0,0,11,possible paywall,politics,other,19.0
-912,0.9192013888888889,0,49,0,0,11,possible paywall,politics,other,888.5
+18,0.29614583333333333,1,49,70,0,11,humor,cats,other,450.5
+5,0.6912731481481481,1,49,236,1,11,discussion,music,other,0.0
+2,0.8624768518518519,0,17,286,0,11,cat picture - oc,cats,other,11.0
+0,0.7359259259259259,0,41,0,0,11,other,games,other,19.0
+0,0.6330902777777778,1,38,817,1,11,general baking discussion,baking,other,0.0
+6,0.050833333333333335,1,19,0,0,11,politics,technology,other,41.0
+1,0.8508449074074074,0,47,3192,1,11,discussion,music,other,2.0
+43,0.9785300925925926,0,48,362,0,11,cat picture - oc,cats,other,273.0
+0,0.5662731481481481,1,51,0,0,11,artwork,art,other,12.0
+51,0.9422453703703704,0,18,500,1,11,seeking recipe,baking,other,18.0
+6,0.6618981481481482,1,122,0,0,11,trailer,movies,other,14.0
+0,0.6064351851851851,1,49,0,0,11,article,music,other,1.0
+56,0.19315972222222222,1,195,0,0,11,no paywall,politics,other,122.0
+5,46.56324074074074,4,90,5752,1,9,showcase,python,other,7.0
+0,0.14413194444444444,1,96,0,0,11,unknown,aww,other,47.0
+0,46.13017361111111,4,26,762,1,9,discussion,python,other,0.0
+34,0.053009259259259256,1,59,0,0,11,other,technology,other,68.0
+1,1.0108333333333333,0,63,0,0,11,music,music,other,9.0
+15,46.787523148148146,3,43,243,1,9,question,palworld,other,21.0
+2,0.6653472222222222,1,34,478,1,11,unknown,asklatinamerica,other,0.0
+272,46.87751157407408,3,46,0,0,9,unknown,publicfreakout,other,450.5
+18,0.979224537037037,0,62,0,0,11,unknown,games,other,13.0
+1,0.6296759259259259,1,20,196,0,11,advice,cats,other,9.0
+33,0.9651736111111111,0,39,0,0,11,no paywall,politics,accurate_cry_8937,0.0
+6,0.6703472222222222,1,14,500,1,11,baking advice needed,baking,other,2.0
+4,0.47180555555555553,1,52,346,0,11,advice,cats,other,25.0
+0,0.48564814814814816,1,54,0,0,11,artwork,art,other,0.0
+22,0.6716435185185186,1,9,326,1,11,question,movies,other,0.0
+0,0.14657407407407408,1,42,0,0,11,music,music,other,2.0
+2,0.9352314814814815,0,17,0,0,11,cat picture - oc,cats,other,17.0
+1,0.07006944444444445,1,78,0,0,11,article,music,other,0.0
+264,0.9483217592592592,0,68,0,0,11,possible paywall,politics,other,450.5
+12,0.11917824074074074,1,113,0,0,11,cat picture - oc,cats,other,129.0
+0,0.8351388888888889,0,16,0,0,11,unknown,aww,other,41.0
+112,0.8964120370370371,0,62,0,0,11,other,technology,other,397.0
+138,46.19659722222222,4,62,0,0,9,:misc: 🇲​🇮​🇸​🇨​,facepalm,other,450.5
+1,0.5377546296296296,1,38,0,0,11,artwork,art,other,34.0
+24,0.2158912037037037,1,55,0,0,11,no paywall,politics,other,71.0
+187,46.736805555555556,3,136,0,0,9,unknown,interestingasfuck,other,450.5
+20,46.85344907407407,3,33,218,0,9,other,baldursgate3,other,290.0
+0,0.17380787037037038,1,20,0,0,11,cat picture - oc,cats,other,10.0
+1,0.6884143518518518,1,34,0,0,11,cat picture - oc,cats,other,17.0
+0,0.6280902777777778,1,46,0,0,11,unknown,aww,other,9.0
+4,0.43006944444444445,1,38,1132,0,11,cat picture - oc,cats,other,24.0
+29,46.93958333333333,3,41,0,0,9,unknown,pics,other,138.0
+6,0.9161921296296296,0,20,1488,1,11,discussion,music,other,1.0
+1,0.5391782407407407,1,212,0,0,11,software,technology,other,7.0
+3,0.7262152777777777,1,30,0,0,11,unknown,aww,other,182.0
+21,0.6964814814814815,1,102,0,0,11,possible paywall,politics,other,86.0
+10,46.76263888888889,3,35,0,0,9,unknown,pics,other,140.0
+50,0.9850347222222222,0,86,2348,1,11,other,politics,other,44.0
+4,0.7843634259259259,0,49,0,0,11,unknown,aww,other,33.0
+2,0.051423611111111114,1,20,0,0,11,unknown,aww,other,34.0
+1,0.6410416666666666,1,22,0,0,11,cat picture - not oc,cats,other,12.0
+1,0.5882523148148148,1,46,0,0,11,unknown,aww,other,14.0
+38,0.9064583333333334,0,21,443,1,11,discussion,movies,other,0.0
+4,46.8518287037037,3,71,0,0,9,other,livestreamfail,other,0.0
+91,0.87,0,89,0,0,11,software,technology,other,450.5
+22,0.8777546296296296,0,50,802,1,11,discussion,movies,other,0.0
+0,0.1516435185185185,1,32,0,0,11,artwork,art,other,1.0
+6,0.6955092592592592,1,44,1073,1,11,question,movies,other,0.0
+14,0.11684027777777778,1,16,0,0,11,unknown,aww,other,359.0
+17,1.0203819444444444,0,31,0,0,11,artwork,art,other,450.5
+27,0.9300231481481481,0,57,0,0,11,paywall,politics,other,163.0
+147,0.5208101851851852,1,169,1017,1,11,discussion,movies,other,450.5
+10,0.09320601851851852,1,203,0,0,11,no paywall,politics,other,80.0
+8,0.829375,0,39,313,1,11,discussion,writing,other,1.0
+217,0.6677314814814815,1,74,0,0,11,no paywall,politics,other,450.5
+2,0.4414236111111111,1,35,0,0,11,artwork,art,other,0.0
+6,0.8527662037037037,0,113,0,0,11,article,music,other,0.0
+5,0.5381018518518519,1,27,759,0,11,medical questions,cats,other,27.0
+4,0.799212962962963,0,50,0,0,11,unknown,aww,other,16.0
+2,0.87875,0,15,0,0,11,unknown,aww,other,70.0
+3,0.8205324074074074,0,22,109,0,11,no-recipe provided,baking,other,19.0
+32,46.634791666666665,4,66,0,0,9,unknown,interestingasfuck,other,450.5
+5,0.16449074074074074,1,75,0,0,11,no paywall,politics,other,54.0
+1103,46.89304398148148,3,63,0,1,9,unknown,askreddit,other,450.5
+1,0.9553703703703704,0,38,0,0,11,recipe included,baking,other,10.0
+1,0.123125,1,32,0,0,11,music,music,other,0.0
+7,46.58324074074074,4,47,0,0,9,unknown,interestingasfuck,other,0.0
+0,0.5338310185185186,1,62,0,0,11,music,music,other,0.0
+2,0.06027777777777778,1,72,0,0,11,artwork,art,other,3.0
+1,0.7075115740740741,1,80,0,0,11,unknown,aww,other,15.0
+2,0.5595138888888889,1,165,0,0,11,other,music,other,14.0
+119,46.9403125,3,30,30,0,9,other,livestreamfail,other,450.5
+3,0.05820601851851852,1,10,650,0,11,recipe included,baking,other,27.0
+3,0.9568402777777778,0,17,766,1,11,unknown,writing,other,0.0
+6,0.22215277777777778,1,183,0,0,11,business,technology,other,75.0
+0,0.6164699074074074,1,38,804,0,11,cat picture - oc,cats,other,12.0
+15,46.8915162037037,3,63,0,0,9,unknown,funny,other,154.0
+0,0.2391087962962963,1,35,0,0,11,article,music,other,0.0
+8,0.06619212962962963,1,54,0,0,11,trailer,games,other,1.0
+212,0.809837962962963,0,52,0,0,11,media,movies,other,450.5
+53,1.0025231481481482,0,92,0,0,11,no paywall,politics,other,0.0
+2,0.2166435185185185,1,25,793,0,11,recipe included,baking,other,10.0
+0,46.12457175925926,4,50,1727,1,9,showcase,python,other,3.0
+8,0.16412037037037036,1,68,0,0,11,no paywall,politics,other,68.0
+2,0.5148842592592593,1,13,0,0,11,unknown,aww,other,60.0
+24,0.8793171296296296,0,59,0,0,11,no paywall,politics,other,116.0
+3,46.57949074074074,4,86,306,0,9,question,palworld,other,29.0
+0,0.05162037037037037,1,43,0,0,11,artwork,art,other,4.0
+0,0.9679398148148148,0,62,0,0,11,music,music,other,3.0
+2,0.7300810185185185,1,56,0,0,11,music,music,other,1.0
+7,0.21665509259259258,1,114,0,0,11,unknown,aww,other,450.5
+6,0.5774074074074074,1,31,0,0,11,unknown,aww,other,122.0
+6,0.15020833333333333,1,20,0,0,11,unknown,aww,other,185.0
+29,0.1828935185185185,1,24,930,1,11,discussion,movies,other,0.0
+7,0.06701388888888889,1,68,0,0,11,unknown,games,turbostrider27,21.0
+17,0.5215509259259259,1,38,468,0,11,cat picture - oc,cats,other,339.0
+1,0.9931134259259259,0,43,0,0,11,music,music,other,8.0
+109,0.9360648148148148,0,41,2933,0,11,video - oc,cats,other,252.0
+16,0.8582986111111112,0,54,0,0,11,artificial intelligence,technology,other,47.0
+5,0.8065509259259259,0,31,0,0,11,music,music,other,8.0
+1225,46.98444444444444,3,38,0,1,9,unknown,askreddit,other,232.0
+24,0.1420486111111111,1,29,12683,1,11,other,games,other,83.0
+3,0.6652662037037037,1,44,0,0,11,unknown,aww,other,27.0
+2,0.6041087962962963,1,13,27,0,11,cat picture - oc,cats,other,25.0
+16,0.3243287037037037,1,54,0,1,11,other,asklatinamerica,other,3.0
+20,0.8298263888888889,0,25,0,0,11,unknown,aww,other,146.0
+2,0.7078587962962963,1,31,0,0,11,artwork,art,other,7.0
+4,0.35431712962962963,1,84,0,0,11,no paywall,politics,other,28.0
+110,0.9244560185185186,0,104,0,0,11,article,music,other,450.5
+31,0.7651157407407407,0,11,0,0,11,unknown,aww,other,450.5
+203,0.2451736111111111,1,54,0,0,11,business,technology,other,450.5
+908,46.13393518518519,4,87,0,0,9,unknown,pics,other,450.5
+180,0.10851851851851851,1,186,0,0,11,discussion,games,other,236.0
+10,0.49769675925925927,1,47,440,1,11,baking advice needed,baking,other,4.0
+13,0.1496875,1,55,0,0,11,paywall,politics,other,70.0
+39,47.01677083333333,3,28,0,0,9,meme,baldursgate3,other,450.5
+54,0.7425115740740741,0,137,585,1,11,discussion,music,other,0.0
+3,0.4337152777777778,1,49,0,0,11,unknown,aww,other,73.0
+112,46.85554398148148,3,40,202,1,9,unknown,nostupidquestions,other,450.5
+2,0.08895833333333333,1,12,0,0,11,unknown,aww,other,13.0
+18,0.8064699074074074,0,45,825,1,11,question,movies,other,5.0
+27,0.9301967592592593,0,103,0,0,11,unknown,games,other,195.0
+40,0.11994212962962963,1,191,0,0,11,possible paywall,politics,other,125.0
+0,0.5071064814814815,1,87,533,1,11,review,movies,other,0.0
+5,0.9846412037037037,0,101,0,0,11,unknown,aww,other,48.0
+10,0.4666087962962963,1,32,297,1,11,baking advice needed,baking,other,0.0
+12,46.16203703703704,4,37,261,0,9,unknown,home,other,10.0
+3,0.8112268518518518,0,31,0,0,11,music,music,other,2.0
+0,0.4029513888888889,1,63,0,0,11,music,music,other,1.0
+32,0.6808449074074074,1,53,0,0,11,unknown,aww,other,450.5
+17,46.22915509259259,4,60,0,0,9,other,damnthatsinteresting,other,317.0
+1,0.5935532407407408,1,54,0,0,11,music,music,other,1.0
+6,0.9460532407407407,0,10,0,0,11,cat picture - oc,cats,other,12.0
+1,0.6693634259259259,1,32,0,0,11,cat picture - oc,cats,other,26.0
+1,0.9699652777777777,0,56,0,0,11,music,music,other,6.0
+5,0.11318287037037036,1,27,169,0,11,cat picture - oc,cats,other,10.0
+3,0.23547453703703702,1,42,0,0,11,no-recipe provided,baking,other,8.0
+1,0.7123495370370371,1,56,0,0,11,industry news,games,other,30.0
+53,0.7120601851851852,1,195,0,0,11,unknown,aww,other,450.5
+11,0.6021643518518518,1,258,0,0,11,trailer,movies,other,5.0
+14,0.7431597222222223,0,99,1,0,11,news,movies,other,367.0
+0,0.07461805555555556,1,44,0,0,11,music,music,other,0.0
+3,46.99386574074074,3,89,0,0,9,unknown,interestingasfuck,other,7.0
+2,0.7124884259259259,1,46,556,1,11,other,baking,other,2.0
+17,0.9181828703703704,0,91,0,0,11,unknown,games,turbostrider27,47.0
+1,0.3466898148148148,1,271,0,0,11,humor,cats,other,9.0
+0,0.7494328703703703,0,47,0,0,11,artwork,art,other,0.0
+11,0.9020370370370371,0,88,0,0,11,no paywall,politics,namelessresearcher,303.0
+38,0.1284375,1,140,522,1,11,other,movies,other,9.0
+40,46.969976851851854,3,67,0,0,9,unknown,funny,other,450.5
+4,1.014375,0,88,768,1,11,discussion,music,other,0.0
+19,0.969849537037037,0,81,0,0,11,no paywall,politics,other,8.0
+0,0.17581018518518518,1,86,0,0,11,music,music,other,6.0
+70,0.23717592592592593,1,123,0,0,11,no paywall,politics,other,450.5
+4,0.48462962962962963,1,36,0,0,11,unknown,aww,other,91.0
+3,0.8311689814814814,0,50,0,0,11,cat picture - oc,cats,other,94.0
+13,0.9331134259259259,0,78,0,0,11,no paywall,politics,other,111.0
+2,0.9164351851851852,0,38,2396,1,11,video,music,other,4.0
+2,0.942488425925926,0,58,0,0,11,article,music,other,0.0
+305,46.80605324074074,3,27,0,0,9,unknown,interestingasfuck,other,450.5
+2,0.2725462962962963,1,18,2430,0,11,mourning/loss,cats,other,11.0
+0,0.9882986111111111,0,50,0,0,11,artwork,art,other,11.0
+53,0.0694675925925926,1,56,131,1,11,discussion,writing,other,7.0
+0,0.15003472222222222,1,43,9,0,11,cat picture - oc,cats,other,11.0
+0,0.9456944444444444,0,41,0,0,11,music,music,other,0.0
+3,0.2619560185185185,1,14,58,0,11,recipe to be posted soon. no guarantees.,baking,other,4.0
+0,0.6515625,1,25,0,0,11,article,music,other,0.0
+1,0.16355324074074074,1,83,0,0,11,artificial intelligence,technology,other,12.0
+2,0.6732754629629629,1,12,1245,0,11,advice,cats,other,17.0
+1,0.4162152777777778,1,34,0,0,11,cat picture - oc,cats,other,13.0
+59,0.7079513888888889,1,90,0,0,11,no paywall,politics,other,32.0
+33,46.535011574074076,4,54,0,0,9,video,damnthatsinteresting,other,450.5
+2,0.7035763888888888,1,51,0,0,11,unknown,aww,other,38.0
+1,0.77875,0,19,660,1,11,baking advice needed,baking,other,3.0
+37,0.6199074074074075,1,53,316,1,11,discussion,movies,other,13.0
+19,0.8734375,0,60,0,0,11,no paywall,politics,other,163.0
+7,0.6573842592592593,1,27,0,0,11,cat picture - not oc,cats,other,17.0
+0,46.775925925925925,3,20,41,0,9,unknown,livestreamfail,other,0.0
+97,45.99302083333333,4,77,0,0,9,other,livestreamfail,other,450.5
+0,0.13677083333333334,1,21,433,0,11,advice,cats,other,25.0
+2,0.9799189814814815,0,12,0,0,11,unknown,aww,other,57.0
+61,0.19202546296296297,1,30,0,0,11,cat picture - oc,cats,other,187.0
+4,0.24320601851851853,1,25,85,0,11,no-recipe provided,baking,other,27.0
+0,0.10168981481481482,1,14,0,0,11,cat picture - oc,cats,other,34.0
+65,46.69076388888889,4,38,26,0,9,unknown,funny,other,124.0
+0,0.6156481481481482,1,54,0,0,11,music,music,other,3.0
+6,0.12715277777777778,1,34,177,1,11,seeking recipe,baking,other,4.0
+2,0.6025347222222223,1,78,0,0,11,unknown,aww,other,30.0
+2,0.7841203703703704,0,21,0,0,11,video - oc,cats,other,16.0
+9,0.8196875,0,13,345,1,11,discussion,movies,other,0.0
+3,46.965520833333336,3,43,111,1,9,question,palworld,other,6.0
+1,0.7086921296296296,1,30,0,0,11,unknown,aww,other,9.0
+8,0.5946875,1,74,0,0,11,possible paywall,politics,other,36.0
+3,46.79679398148148,3,67,2154,1,9,discussion,python,other,5.0
+0,0.10363425925925926,1,25,0,0,11,other,music,other,0.0
+8,0.2464236111111111,1,47,0,0,11,cat picture - oc,cats,other,18.0
+48,0.8837731481481481,0,24,226,0,11,baking advice needed,baking,other,25.0
+2,0.6665046296296296,1,39,0,0,11,humor,cats,other,49.0
+3,0.18528935185185186,1,73,0,0,11,video - oc,cats,other,13.0
+6,0.45135416666666667,1,27,0,0,11,cat picture - oc,cats,other,11.0
+4,0.8519907407407408,0,19,16,0,11,cat picture - oc,cats,other,20.0
+0,0.2589699074074074,1,39,0,0,11,cat picture - oc,cats,other,15.0
+3,0.9893171296296296,0,76,0,0,11,no-recipe provided,baking,other,73.0
+1,0.7752777777777777,0,13,0,0,11,unknown,aww,other,21.0
+1,0.06766203703703703,1,33,0,0,11,unknown,aww,other,15.0
+0,0.0959837962962963,1,52,0,0,11,artwork,art,other,6.0
+0,0.12450231481481482,1,20,0,0,11,unknown,aww,other,13.0
+0,0.22108796296296296,1,53,0,0,11,music,music,other,3.0
+0,0.39328703703703705,1,75,142,0,11,video - oc,cats,other,22.0
+25,0.9546990740740741,0,33,0,0,11,no paywall,politics,other,252.0
+0,0.12511574074074075,1,32,0,0,11,unknown,aww,other,54.0
+7,0.0343287037037037,1,44,0,0,11,:basketball: basketball,sports,other,0.0
+42,0.5826388888888889,1,56,0,0,11,possible paywall,politics,other,163.0
+1,0.5483680555555556,1,17,0,0,11,unknown,aww,other,26.0
+4,0.23972222222222223,1,35,737,1,11,discussion,music,other,0.0
+0,0.07211805555555556,1,65,0,0,11,article,music,other,1.0
+86,46.25030092592593,4,75,0,0,9,other,livestreamfail,other,450.5
+2,0.5021412037037037,1,55,0,0,11,no-recipe provided,baking,other,3.0
+4,0.9359490740740741,0,69,0,0,11,article,music,other,0.0
+2,0.15059027777777778,1,51,911,1,11,unknown,writing,other,4.0
+1,0.8002199074074074,0,61,0,0,11,unknown,aww,other,112.0
+21,46.335,4,55,0,0,9,screenshot,baldursgate3,other,182.0
+26,0.2575925925925926,1,44,545,1,11,discussion,writing,other,6.0
+108,0.7001041666666666,1,65,0,0,11,artificial intelligence,technology,other,202.0
+0,0.7700231481481481,0,42,0,0,11,music,music,other,1.0
+12,0.6310069444444445,1,104,0,0,11,no paywall,politics,snoograpes2950,28.0
+338,47.02533564814815,3,159,0,0,9,image,damnthatsinteresting,other,450.5
+17,0.7693055555555556,0,54,0,0,11,media,movies,other,19.0
+565,46.177905092592596,4,21,0,0,9,:misc: 🇲​🇮​🇸​🇨​,facepalm,other,450.5
+16,0.9469444444444445,0,44,944,1,11,discussion,music,other,1.0
+1,0.015578703703703704,1,50,0,0,11,trailer,games,other,6.0
+8,0.9648611111111111,0,74,0,0,11,no paywall,politics,other,20.0
+8,0.9390856481481481,0,43,0,0,11,artwork,art,other,272.0
+12,0.7387847222222222,0,47,0,0,11,possible paywall,politics,other,64.0
+110,46.568761574074074,4,113,0,0,9,unknown,publicfreakout,other,219.0
+297,0.6518402777777778,1,54,0,0,11,possible paywall,politics,other,450.5
+0,0.4270023148148148,1,117,217,1,11,other,baking,other,1.0
+51,0.604363425925926,1,30,0,0,11,review,games,other,33.0
+2,46.89740740740741,3,70,0,0,9,unknown,funny,other,0.0
+51,46.138391203703705,4,31,378,0,9,unknown,home,other,25.0
+1,0.1388310185185185,1,50,0,0,11,artwork,art,other,0.0
+27,0.5665509259259259,1,89,415,1,11,unknown,asklatinamerica,other,8.0
+1,0.9571990740740741,0,41,0,0,11,new release,music,other,0.0
+4,0.859363425925926,0,52,0,0,11,music,music,other,3.0
+50,0.8232986111111111,0,300,0,0,11,news,movies,other,432.0
+12,0.3971527777777778,1,52,458,1,11,discussion,movies,other,0.0
+72,0.7085416666666666,1,37,0,0,11,possible paywall,politics,other,450.5
+0,0.30903935185185183,1,41,0,0,11,music,music,other,2.0
+160,0.22930555555555557,1,54,0,0,11,possible paywall,politics,other,450.5
+22,0.7390162037037037,0,23,0,0,11,video - oc,cats,other,70.0
+22,0.5387847222222222,1,85,0,0,11,no paywall,politics,other,115.0
+4,0.08137731481481482,1,59,334,1,11,baking advice needed,baking,other,0.0
+1724,46.74431712962963,3,68,0,1,9,unknown,askreddit,other,450.5
+31,0.12027777777777778,1,43,0,0,11,no-recipe provided,baking,other,367.0
+21,0.20521990740740742,1,149,1515,1,11,discussion,movies,other,0.0
+3,0.9375694444444445,0,60,0,0,11,artificial intelligence,technology,other,0.0
+3,0.0758912037037037,1,86,0,0,11,possible paywall,politics,other,34.0
+1,0.10349537037037038,1,35,0,0,11,article,music,other,0.0
+120,0.965474537037037,0,200,0,0,11,business,technology,other,450.5
+2,0.6269212962962963,1,21,0,0,11,trailer,movies,other,0.0
+1,0.28836805555555556,1,104,0,0,11,cat picture - oc,cats,other,13.0
+28,0.737199074074074,0,56,0,0,11,trailer,games,other,163.0
+0,0.20850694444444445,1,52,0,0,11,music,music,other,0.0
+0,0.5475694444444444,1,53,0,0,11,artwork,art,other,17.0
+61,0.15377314814814816,1,114,0,0,11,no paywall,politics,other,313.0
+10,0.8523495370370371,0,39,0,0,11,unknown,aww,other,450.5
+9,0.39998842592592593,1,127,240,1,11,discussion,music,other,0.0
+0,0.38458333333333333,1,57,0,0,11,music,music,other,1.0
+13,0.7724421296296297,0,117,0,0,11,industry news,games,other,0.0
+114,0.2798148148148148,1,57,675,1,11,question,movies,other,74.0
+0,0.2525115740740741,1,42,0,0,11,music,music,other,1.0
+54,0.13961805555555556,1,64,0,0,11,no paywall,politics,other,450.5
+20,0.6424421296296297,1,78,0,0,11,no paywall,politics,other,21.0
+5,0.989363425925926,0,80,0,0,11,:football: football,sports,other,43.0
+2,0.07596064814814815,1,37,0,0,11,unknown,aww,other,0.0
+6,46.939224537037035,3,35,0,0,9,unknown,funny,other,0.0
+0,0.8045949074074074,0,37,0,0,11,music,music,other,1.0
+0,0.26136574074074076,1,45,0,0,11,music,music,other,1.0
+4,1.0128472222222222,0,21,371,1,11,discussion,music,other,0.0
+5,46.570601851851855,4,91,0,0,9,arts/crafts,pics,other,171.0
+992,46.860104166666666,3,96,0,0,9,other,publicfreakout,other,450.5
+16,46.60207175925926,4,71,0,0,9,unknown,interestingasfuck,other,269.0
+160,0.7981712962962964,0,207,0,0,11,no paywall,politics,other,450.5
+8,46.67381944444445,4,37,6,0,9,unknown,funny,other,77.0
+3,0.6047337962962963,1,22,71,0,11,cat picture - oc,cats,other,11.0
+151,46.0944212962963,4,95,0,0,9,unknown,interestingasfuck,other,450.5
+18,0.6457407407407407,1,44,0,0,11,possible paywall,politics,other,12.0
+1,0.1945486111111111,1,27,0,0,11,cat picture - oc,cats,other,26.0
+2,0.10855324074074074,1,20,0,0,11,unknown,aww,other,9.0
+1,0.879837962962963,0,101,0,0,11,no paywall,politics,other,9.0
+2,0.05648148148148148,1,30,237,0,11,baking advice needed,baking,other,3.0
+0,0.09966435185185185,1,62,0,0,11,music,music,other,0.0
+24,0.9658680555555555,0,27,0,0,11,media,movies,noculture3505,136.0
+263,46.96288194444445,3,157,0,1,9,unknown,nostupidquestions,other,450.5
+46,0.8522800925925926,0,29,0,0,11,no paywall,politics,other,450.5
+2,0.6972916666666666,1,55,1318,1,11,baking advice needed,baking,other,1.0
