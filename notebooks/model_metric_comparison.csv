@@ -1,0 +1,6 @@
+model_key,split,rmse
+random_forest,test,84.69797077346202
+xgboost,test,85.3034898482855
+random_forest,val,95.58418554715932
+xgboost,val,98.75726260997618
+elasticnet,val,131.63489689823575
