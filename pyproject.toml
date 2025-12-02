@@ -23,6 +23,9 @@ dependencies = [
   "transformers>=4.57.3",
   "torch>=2.9.1",
   "sentence-transformers>=5.1.2",
+  "prefect>=3.6.4",
+  "fastapi[standard]>=0.121.1",
+  "streamlit>=1.51.0",
 ]
 
 [project.optional-dependencies]
