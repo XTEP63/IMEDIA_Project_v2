@@ -1,25 +1,22 @@
 FROM python:3.11-slim
 
-# Evita que python bufee logs y que pip deje cache
+# Logs sin buffer y sin cache de pip
 ENV PYTHONUNBUFFERED=1 \
     PIP_NO_CACHE_DIR=1
 
-WORKDIR /code
+WORKDIR /app
 
-# Paquetes de sistema mínimos
-RUN apt-get update && apt-get install -y \
-    build-essential \
-    git \
-    && rm -rf /var/lib/apt/lists/*
+# Copiar requirements ligeros de la UI
+COPY requirements.txt /app/requirements.txt
 
-# Instalación de dependencias
-COPY ./requirements.txt /code/requirements.txt
+# Instalar dependencias
 RUN pip install --upgrade pip && \
-    pip install -r /code/requirements.txt
+    pip install -r /app/requirements.txt
 
-# Copiar todo el frontend (o todo el repo si es pequeño)
+# Copiar el código de la app
 COPY . /app
 
+# Puerto de Streamlit
 EXPOSE 8501
 
 # Ejecutar Streamlit

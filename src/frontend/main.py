@@ -21,8 +21,12 @@ st.write(
 # =========================
 # Configuración del backend
 # =========================
-BACKEND_URL = os.getenv("BACKEND_URL", "http://127.0.0.1:8000")
+BACKEND_URL = os.getenv(
+    "BACKEND_URL",
+    "https://marianasgg-imedia-api-hf.hf.space"  
+)
 PREDICT_ENDPOINT = f"{BACKEND_URL}/api/v1/predict-sentiment"
+
 
 st.sidebar.header("⚙️ Configuración")
 
