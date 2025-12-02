@@ -1,5 +1,5 @@
 # ============================================
-# Sentiment Flow (Prefect + BERT + MLP + MLflow)
+# Sentiment Flow (Prefect + BERT + MLP + HPO + MLflow)
 # ============================================
 
 import os
@@ -18,6 +18,7 @@ import pandas as pd
 import mlflow
 from mlflow import MlflowClient
 from mlflow.models.signature import infer_signature
+from mlflow import sklearn as mlflow_sklearn
 
 from dotenv import load_dotenv
 
@@ -33,17 +34,15 @@ import torch
 
 from prefect import flow, task
 
+# HPO (Hyperopt)
+from hyperopt import fmin, tpe, hp, Trials, STATUS_OK
+
 # =========================
 # Constantes / Config
 # =========================
 
 SEED = 42
 np.random.seed(SEED)
-
-
-# =========================
-# Rutas base (ancladas a la raíz del proyecto)
-# =========================
 
 ROOT_DIR = Path(__file__).resolve().parents[2]
 
@@ -58,13 +57,8 @@ EMBEDDINGS_DIR.mkdir(parents=True, exist_ok=True)
 PREPROC_LOCAL_DIR = ROOT_DIR / "preprocesador"
 PREPROC_LOCAL_DIR.mkdir(parents=True, exist_ok=True)
 
-# =========================
-# Config de experimento / MLflow
-# =========================
-
 EXPERIMENT_NAME = "/Users/marianasgg19@gmail.com/EMI/imedia/Sentiment_BERT_MLP"
 DEEP_MODEL_NAME = "workspace.default.EMI_imedia_sentiment_deep_model_NTBK"
-
 
 BERT_MODELS = [
     "nlptown/bert-base-multilingual-uncased-sentiment",      # 5 clases (1-5 stars)
@@ -72,6 +66,12 @@ BERT_MODELS = [
 ]
 
 ST_MODEL_NAME = "sentence-transformers/all-MiniLM-L6-v2"
+
+# Espacio de búsqueda HPO para el MLP
+HLS_CHOICES      = [(128,), (256,), (512,)]
+BS_CHOICES       = [64, 128, 256]
+MAXITER_CHOICES  = [5, 10, 20]
+MAX_EVALS        = 20  # nº de trials de Hyperopt
 
 
 # =========================
@@ -171,7 +171,6 @@ def setup_mlflow_task() -> None:
     """
     tracking_uri = _resolve_tracking_uri()
     mlflow.set_tracking_uri(tracking_uri)
-    # registry URI la configuramos después solo donde se necesite
     client = MlflowClient()
     exp = client.get_experiment_by_name(EXPERIMENT_NAME)
     if exp is None:
@@ -241,7 +240,7 @@ def train_bert_models_task(
     y_test: np.ndarray,
 ) -> List[Dict[str, Any]]:
     """
-    Entrena/evalúa los dos modelos BERT y loggea en MLflow.
+    Evalúa los dos modelos BERT (inferencia) y loggea métricas en MLflow.
     Devuelve lista de dicts con resultados para tabla de comparación.
     """
     results: List[Dict[str, Any]] = []
@@ -310,8 +309,8 @@ def train_bert_models_task(
     return results
 
 
-@task(name="Sentiment-Train-MLP-Embeddings")
-def train_mlp_embeddings_task(
+@task(name="Sentiment-Train-MLP-Embeddings-HPO")
+def train_mlp_embeddings_hpo_task(
     X_train_text: List[str],
     X_val_text: List[str],
     X_test_text: List[str],
@@ -320,100 +319,181 @@ def train_mlp_embeddings_task(
     y_test: np.ndarray,
 ) -> Dict[str, Any]:
     """
-    Genera embeddings con SentenceTransformer + entrena MLPClassifier.
-    Registra el modelo en UC y devuelve resultados para tabla de comparación.
+    Genera embeddings con SentenceTransformer + ejecuta HPO (Hyperopt)
+    sobre un MLPClassifier. Registra el mejor modelo en UC y devuelve
+    resultados para tabla de comparación.
     """
+    # 1) Embeddings con SentenceTransformer (una sola vez)
     st_model = SentenceTransformer(ST_MODEL_NAME)
 
-    # Embeddings
     X_train_emb = embed_texts(st_model, X_train_text)
     X_val_emb   = embed_texts(st_model, X_val_text)
     X_test_emb  = embed_texts(st_model, X_test_text)
 
     print("Emb shapes:", X_train_emb.shape, X_val_emb.shape, X_test_emb.shape)
 
+    # Guardar embeddings como artefactos reproducibles
     emb_info_train = save_embeddings_artifact(ST_MODEL_NAME, X_train_emb, split="train")
     emb_info_val   = save_embeddings_artifact(ST_MODEL_NAME, X_val_emb,   split="val")
     emb_info_test  = save_embeddings_artifact(ST_MODEL_NAME, X_test_emb,  split="test")
 
-    mlp_clf = MLPClassifier(
-        hidden_layer_sizes=(256,),
-        activation="relu",
-        solver="adam",
-        batch_size=256,
-        learning_rate_init=1e-3,
-        max_iter=10,
-        random_state=SEED,
-        verbose=True,
-    )
+    # 2) Definir espacio de búsqueda HPO
+    search_space = {
+        "hidden_layer_sizes": hp.choice("hidden_layer_sizes", HLS_CHOICES),
+        "alpha": hp.loguniform("alpha", np.log(1e-5), np.log(1e-1)),
+        "learning_rate_init": hp.loguniform("learning_rate_init", np.log(1e-4), np.log(5e-3)),
+        "batch_size": hp.choice("batch_size", BS_CHOICES),
+        "max_iter": hp.choice("max_iter", MAXITER_CHOICES),
+    }
 
-    pipe = Pipeline(steps=[
-        ("scaler", StandardScaler(with_mean=True, with_std=True)),
-        ("mlp", mlp_clf),
-    ])
+    # 3) Parent run para agrupar todos los trials
+    with mlflow.start_run(run_name="mlp_transformer_embeddings_HPO_FLOW_NTBK") as parent_run:
 
-    from mlflow import sklearn as mlflow_sklearn
+        def objective(params):
+            """
+            Función objetivo para Hyperopt.
+            Entrena pipeline scaler + MLP con los hiperparámetros propuestos
+            y devuelve -val_f1 (porque Hyperopt MINIMIZA).
+            """
+            mlp_clf = MLPClassifier(
+                hidden_layer_sizes=params["hidden_layer_sizes"],
+                activation="relu",
+                solver="adam",
+                batch_size=int(params["batch_size"]),
+                learning_rate_init=float(params["learning_rate_init"]),
+                alpha=float(params["alpha"]),
+                max_iter=int(params["max_iter"]),
+                random_state=SEED,
+                verbose=False,
+            )
 
-    with mlflow.start_run(run_name="mlp_transformer_embeddings_NTBK") as run:
-        pipe.fit(X_train_emb, y_train)
+            pipe = Pipeline(steps=[
+                ("scaler", StandardScaler(with_mean=True, with_std=True)),
+                ("mlp", mlp_clf),
+            ])
 
-        y_val_pred  = pipe.predict(X_val_emb)
-        y_test_pred = pipe.predict(X_test_emb)
+            with mlflow.start_run(run_name="mlp_hpo_trial", nested=True):
+                pipe.fit(X_train_emb, y_train)
+
+                y_val_pred = pipe.predict(X_val_emb)
+                val_acc = accuracy_score(y_val, y_val_pred)
+                val_f1  = f1_score(y_val, y_val_pred, average="binary")
+
+                mlflow.log_param("model_family", "mlp_classifier")
+                mlflow.log_param("features", "sentence_transformers_embeddings")
+                mlflow.log_params({
+                    "hidden_layer_sizes": params["hidden_layer_sizes"],
+                    "alpha": params["alpha"],
+                    "learning_rate_init": params["learning_rate_init"],
+                    "batch_size": params["batch_size"],
+                    "max_iter": params["max_iter"],
+                })
+                mlflow.log_metric("val_accuracy", val_acc)
+                mlflow.log_metric("val_f1", val_f1)
+
+                return {
+                    "loss": -val_f1,   # queremos maximizar F1 → minimizamos -F1
+                    "status": STATUS_OK,
+                }
+
+        # 4) Ejecutar Hyperopt
+        trials = Trials()
+        best = fmin(
+            fn=objective,
+            space=search_space,
+            algo=tpe.suggest,
+            max_evals=MAX_EVALS,
+            trials=trials,
+            # sin rstate explícito para evitar problemas de versión
+        )
+
+        # Mapear índices de hp.choice a valores reales
+        idx_hls      = best["hidden_layer_sizes"]
+        idx_batch    = best["batch_size"]
+        idx_max_iter = best["max_iter"]
+
+        best_hls      = HLS_CHOICES[idx_hls]
+        best_batch    = BS_CHOICES[idx_batch]
+        best_max_iter = MAXITER_CHOICES[idx_max_iter]
+
+        best_alpha = best["alpha"]
+        best_lr    = best["learning_rate_init"]
+
+        # Log de mejores hiperparámetros en el parent run
+        mlflow.log_param("hpo_max_evals", MAX_EVALS)
+        mlflow.log_params({
+            "best_hidden_layer_sizes": best_hls,
+            "best_alpha": best_alpha,
+            "best_learning_rate_init": best_lr,
+            "best_batch_size": best_batch,
+            "best_max_iter": best_max_iter,
+        })
+
+        # 5) Entrenamiento final con hiperparámetros óptimos
+        best_mlp = MLPClassifier(
+            hidden_layer_sizes=best_hls,
+            activation="relu",
+            solver="adam",
+            batch_size=int(best_batch),
+            learning_rate_init=float(best_lr),
+            alpha=float(best_alpha),
+            max_iter=int(best_max_iter),
+            random_state=SEED,
+            verbose=True,
+        )
+
+        best_pipe = Pipeline(steps=[
+            ("scaler", StandardScaler(with_mean=True, with_std=True)),
+            ("mlp", best_mlp),
+        ])
+
+        best_pipe.fit(X_train_emb, y_train)
+
+        # Evaluación final en val y test
+        y_val_pred  = best_pipe.predict(X_val_emb)
+        y_test_pred = best_pipe.predict(X_test_emb)
 
         val_acc = accuracy_score(y_val, y_val_pred)
         val_f1  = f1_score(y_val, y_val_pred, average="binary")
         test_acc = accuracy_score(y_test, y_test_pred)
         test_f1  = f1_score(y_test, y_test_pred, average="binary")
 
-        print("\nMLP + Transformer - Validation accuracy:", val_acc)
-        print("MLP + Transformer - Validation F1      :", val_f1)
-        print("MLP + Transformer - Test accuracy      :", test_acc)
-        print("MLP + Transformer - Test F1            :", test_f1)
+        print("\n[FINAL MLP + Transformer después de HPO]")
+        print("Validation accuracy:", val_acc)
+        print("Validation F1      :", val_f1)
+        print("Test accuracy      :", test_acc)
+        print("Test F1            :", test_f1)
 
-        mlflow.log_param("model_family", "mlp_classifier")
-        mlflow.log_param("features", "sentence_transformers_embeddings")
-        mlflow.log_param("sentence_transformer_model", ST_MODEL_NAME)
-        mlflow.log_param("hidden_layer_sizes", "(256,)")
-        mlflow.log_param("activation", "relu")
-        mlflow.log_param("solver", "adam")
-        mlflow.log_param("batch_size", 256)
-        mlflow.log_param("max_iter", 10)
+        mlflow.log_metric("final_val_accuracy",  val_acc)
+        mlflow.log_metric("final_val_f1",        val_f1)
+        mlflow.log_metric("final_test_accuracy", test_acc)
+        mlflow.log_metric("final_test_f1",       test_f1)
 
-        mlflow.log_param("train_emb_size", len(y_train))
-        mlflow.log_param("val_emb_size",   len(y_val))
-        mlflow.log_param("test_emb_size",  len(y_test))
-
-        mlflow.log_metric("val_accuracy",  val_acc)
-        mlflow.log_metric("val_f1",        val_f1)
-        mlflow.log_metric("test_accuracy", test_acc)
-        mlflow.log_metric("test_f1",       test_f1)
-
-        # Log de embeddings como artifacts
+        # Log de embeddings como artifacts del parent run
         mlflow.log_artifact(emb_info_train["embeddings_path"], artifact_path="embeddings/train")
         mlflow.log_artifact(emb_info_val["embeddings_path"],   artifact_path="embeddings/val")
         mlflow.log_artifact(emb_info_test["embeddings_path"],  artifact_path="embeddings/test")
 
         # Firma + registro en UC
         example_input = X_train_emb[:100]
-        example_output = pipe.predict(example_input)
+        example_output = best_pipe.predict(example_input)
         signature = infer_signature(example_input, example_output)
 
         mlflow.set_registry_uri("databricks-uc")
         mlflow_sklearn.log_model(
-            sk_model=pipe,
+            sk_model=best_pipe,
             artifact_path="model",
             registered_model_name=DEEP_MODEL_NAME,
             signature=signature,
             input_example=example_input[:5],
         )
 
-        # Guardar preprocesador (scaler) localmente
-        fitted_scaler = pipe.named_steps["scaler"]
+        # Guardar preprocesador (scaler) localmente + artifact
+        fitted_scaler = best_pipe.named_steps["scaler"]
         ts = datetime.utcnow().strftime("%Y%m%d_%H%M%S")
         local_preproc_dir = PREPROC_LOCAL_DIR / f"mlp_scaler_NTBK_{ts}"
         mlflow_sklearn.save_model(sk_model=fitted_scaler, path=str(local_preproc_dir))
 
-        # Loggear preprocesador como artifact
         mlflow_sklearn.log_model(
             sk_model=fitted_scaler,
             artifact_path="preprocessor_scaler_NTBK",
@@ -421,7 +501,7 @@ def train_mlp_embeddings_task(
 
         return {
             "model_key": "mlp_transformer",
-            "run_id": run.info.run_id,
+            "run_id": parent_run.info.run_id,
             "val_accuracy": float(val_acc),
             "val_f1": float(val_f1),
             "test_accuracy": float(test_acc),
@@ -448,7 +528,6 @@ def compare_register_notify_task(
     best_model_key = best_row["model_key"]
     print(f"\n🏆 Mejor modelo según val_f1: {best_model_key} (val_f1={best_row['val_f1']:.4f})")
 
-    # Asignar alias 'champion' SOLO si el mejor es el MLP (el único registrado en UC)
     champion_version = None
     if best_model_key == "mlp_transformer":
         mlflow.set_registry_uri("databricks-uc")
@@ -469,7 +548,6 @@ def compare_register_notify_task(
         print("\n⚠ El mejor modelo es un BERT (no registrado en UC en este flow).")
         print("   El MLP se registró en el Model Registry, pero SIN alias 'champion'.")
 
-    # "Notificación": resumen final que el flow puede retornar
     summary = {
         "best_model_key": best_model_key,
         "best_val_f1": float(best_row["val_f1"]),
@@ -486,29 +564,25 @@ def compare_register_notify_task(
 # FLOW PRINCIPAL
 # =========================
 
-@flow(name="Sentiment-BERT-MLP-Training-Flow")
+@flow(name="Sentiment-BERT-MLP-HPO-Training-Flow")
 def sentiment_training_flow(sample_frac: float = 1.0) -> Dict[str, Any]:
     """
     Flow de entrenamiento:
       1) Setup MLflow
       2) Carga / muestreo de datos
       3) Preprocesamiento (texto + labels)
-      4) Entrenamiento + evaluación de BERTs
-      5) Entrenamiento + evaluación de MLP + embeddings
+      4) Evaluación de BERTs (inferencia)
+      5) HPO + entrenamiento final de MLP + embeddings
       6) Comparación, registro (alias) y notificación
     """
-    # 1) Setup MLflow
     setup_mlflow_task()
 
-    # 2) Carga / muestreo de datos
     train_df, val_df, test_df = load_data_task(sample_frac=sample_frac)
 
-    # 3) Preprocesamiento de texto/labels
     X_train_text, X_val_text, X_test_text, y_train, y_val, y_test = preprocess_text_task(
         train_df, val_df, test_df
     )
 
-    # 4) Entrenar BERTs
     bert_results = train_bert_models_task(
         X_val_text=X_val_text,
         X_test_text=X_test_text,
@@ -516,8 +590,7 @@ def sentiment_training_flow(sample_frac: float = 1.0) -> Dict[str, Any]:
         y_test=y_test,
     )
 
-    # 5) Entrenar MLP + embeddings
-    mlp_result = train_mlp_embeddings_task(
+    mlp_result = train_mlp_embeddings_hpo_task(
         X_train_text=X_train_text,
         X_val_text=X_val_text,
         X_test_text=X_test_text,
@@ -526,7 +599,6 @@ def sentiment_training_flow(sample_frac: float = 1.0) -> Dict[str, Any]:
         y_test=y_test,
     )
 
-    # 6) Comparar, registrar alias champion (si aplica) y "notificar"
     summary = compare_register_notify_task(
         bert_results=bert_results,
         mlp_result=mlp_result,
@@ -539,3 +611,13 @@ if __name__ == "__main__":
     result = sentiment_training_flow(sample_frac=1.0)
     print("\nResultado devuelto por el flow:")
     print(json.dumps(result, indent=2))
+
+'''
+Para ejecutar en local:
+prefect server start
+uv run src/pipelines/train_pipeline.py
+
+para abrir la ui:
+uv run uvicorn src.backend.api:app --reload --port 8000
+uv run streamlit run src/frontend/main.py
+'''
