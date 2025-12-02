@@ -1,0 +1,47 @@
+# -------------------------
+# Core API & Frontend
+# -------------------------
+fastapi==0.110.0
+uvicorn[standard]==0.29.0
+streamlit==1.31.0
+requests==2.31.0
+
+# -------------------------
+# Machine Learning / NLP
+# -------------------------
+transformers==4.38.0
+sentence-transformers==2.2.2
+torch>=2.0.0
+scikit-learn==1.3.2
+numpy==1.26.4
+pandas==2.1.4
+
+# -------------------------
+# MLOps: MLflow + Prefect
+# -------------------------
+mlflow==2.10.0
+prefect==2.14.10
+python-dotenv==1.0.1
+
+# -------------------------
+# Utils / Serialization
+# -------------------------
+protobuf==4.25.2
+pydantic==1.10.13
+typing_extensions>=4.5.0
+pathlib==1.0.1
+
+# -------------------------
+# Optional: visualization
+# -------------------------
+plotly==5.18.0
+
+# -------------------------
+# HuggingFace Hub (si descargas modelos)
+# -------------------------
+huggingface_hub==0.20.3
+
+# -------------------------
+# Production helpers
+# -------------------------
+gunicorn==21.2.0

@@ -1,0 +1,22 @@
+fastapi
+uvicorn[standard]
+
+pydantic>=2.0
+
+mlflow
+databricks-cli
+
+pandas
+numpy
+scikit-learn
+
+torch
+transformers
+sentence-transformers
+
+scipy
+
+python-dotenv
+
+# Utils
+requests
