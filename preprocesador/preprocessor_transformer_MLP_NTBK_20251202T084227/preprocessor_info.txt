@@ -1,1 +1,0 @@
-No sklearn preprocessor. Uses SentenceTransformer embeddings. NTBK
