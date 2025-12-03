@@ -16,7 +16,10 @@ IMEDIA implementa un pipeline de datos reproducible (con **uv**, **Polars**, **S
 - Las APIs y formatos cambian; necesitas una **arquitectura modular**, **idempotente** y **trazable**.
 - Herramientas low-code/BI ayudan a visualizar, pero el valor nace en **datos limpios** y **modelados**.
 
-**IMEDIA** justifica su existencia al: (1) estandarizar ingestion y almacenamiento, (2) dejar un **track** auditable por capas, (3) facilitar análisis avanzados (NLP, LLMs, dashboards) sobre bases sólidas.
+**IMEDIA** justifica su existencia al:  
+(1) estandarizar ingestion y almacenamiento,  
+(2) dejar un **track** auditable por capas,  
+(3) facilitar análisis avanzados (NLP, LLMs, dashboards) sobre bases sólidas.
 
 ---
 
@@ -33,19 +36,20 @@ IMEDIA implementa un pipeline de datos reproducible (con **uv**, **Polars**, **S
 ---
 
 ## 4) Alcance (MVP) y estado actual
-- **Fuente**: Reddit ✅
-- **Pipeline**: `raw → bronze → silver` ✅ (gold en diseño)
-- **Persistencia**: Parquet + SQLite ✅
-- **CLI**: modo *subreddit único* y modo *descubrimiento de N subreddits “hot”* ✅
-- **Comentarios**: descarga del **primer post** por subreddit (flag `--fetch-comments`) ✅
-- **GOLD**: KPIs/ML/LLMs (pendiente) 🔜
+- **Fuente**: Reddit ✅  
+- **Pipeline**: `raw → bronze → silver` ✅ (gold en diseño)  
+- **Persistencia**: Parquet + SQLite ✅  
+- **CLI**: modo *subreddit único* y modo *descubrimiento de N subreddits “hot”* ✅  
+- **Comentarios**: descarga del **primer post** por subreddit (flag `--fetch-comments`) ✅  
+- **GOLD**: KPIs/ML/LLMs (pendiente) 🔜  
 
 ---
 
 ## 5) Arquitectura del pipeline (Medallion)
 ```
-Reddit API → [RAW] NDJSON (as-is) → [BRONZE] Parquet (tipado/flatten) → [SILVER] Parquet+SQLite (dims/facts) → [GOLD] KPIs/Features/LLMs
+Reddit API → [RAW] NDJSON (as-is) → [BRONZE] Parquet (tipado/flatten) → [SILVER] Parquet+SQLite (dims/facts) → [GOLD] KPIs/Features/ML/LLMs
 ```
+
 **Capas**:
 - **RAW**: dumps sin transformar (NDJSON por origen/lote). No se borra ni se pisa.
 - **BRONZE**: tipado suave, separar campos, **sin perder columnas** (nulos permitidos). Particionado por fecha (`created_utc`).
@@ -70,217 +74,322 @@ IMEDIA_PROJECT_V2/
 ├─ .gitignore
 ├─ .env
 ├─ .env.example
-├─ .venv/                              # (entorno local, opcional)
+├─ .venv/                          
 ├─ imedia.egg-info/
 ├─ src/
-│  └─ imedia/                          # código fuente (CLI, clientes, transformadores)
+│  └─ imedia/                          
 ├─ notebooks/
 │  ├─ 00_informe_final.ipynb
 │  ├─ 01_eda_inicial.ipynb
 │  ├─ 02_data_wrangling.ipynb
 │  └─ 03-training_model.ipynb
 ├─ db/
-│  └─ imedia.sqlite                    # SILVER en SQLite (dims/facts) para consultas rápidas
+│  └─ imedia.sqlite                    
 ├─ data/
 │  ├─ raw/
-│  │  └─ reddit/
-│  │     ├─ posts/part-<batch>-[subreddit].ndjson
-│  │     ├─ comments/part-<batch>-[post_id].ndjson
-│  │     ├─ subreddits/part-<batch>-[subreddit].ndjson
-│  │     └─ hot_sublists/part-<batch>-<estrategia>.ndjson
 │  ├─ bronze/
-│  │  └─ reddit/
-│  │     ├─ posts/YYY=…/MM=…/DD=…/posts__<batch>__<subreddit>.parquet
-│  │     ├─ comments/YYY=…/MM=…/DD=…/comments__<batch>__<post_id>.parquet
-│  │     ├─ subreddits/subreddits-<batch>-<subreddit>.parquet
-│  │     └─ hot_sublists/hot_sublists-<batch>-<uid>.parquet
 │  ├─ silver/
-│  │  └─ reddit/
-│  │     ├─ dim_author.parquet
-│  │     ├─ dim_subreddit.parquet
-│  │     ├─ fact_comments.parquet
-│  │     └─ fact_posts.parquet
-│  └─ processed/                       # datasets listos para modelado/validación
-│     ├─ train_posts_clean.csv
-│     └─ test_posts_clean.csv
-└─ preprocesador/                      # REGISTRY de preprocesadores (Pipeline sklearn)
-   ├─ elasticnet_preprocessor_20251111_234152/
-   │  ├─ MLmodel
-   │  ├─ model.pkl                     # objeto Pipeline/ColumnTransformer serializado
-   │  ├─ conda.yaml
-   │  ├─ python_env.yaml
-   │  └─ requirements.txt
-   └─ random_forest_preprocessor_20251111_234129/
-      ├─ MLmodel
-      ├─ model.pkl
-      ├─ conda.yaml
-      ├─ python_env.yaml
-      └─ requirements.txt
+│  └─ processed/                       
+└─ preprocesador/                      
 ```
+
+---
 
 # Flujo (resumen)
+```
 Reddit API
+  → data/raw/reddit
+  → data/bronze/reddit
+  → data/silver/reddit + SQLite
+  → data/processed/*.csv
+  → preprocesador/<modelo>_*
 ```
-  → data/raw/reddit (NDJSON, as-is)
-  → data/bronze/reddit (Parquet tipado/flatten, particionado por fecha)
-  → data/silver/reddit + db/imedia.sqlite (dims/facts normalizados)
-  → data/processed/train_posts_clean.csv y test_posts_clean.csv (wrangling + splits)
-  → preprocesador/<modelo>_* (artifact del preprocesador: Pipeline/ColumnTransformer registrado)
-```
+
+---
 
 # Notas
-- La carpeta **preprocesador/** guarda el *pipeline de preprocesamiento completo* (con ambiente reproducible) por ejecución/modelo solo de los 2 mejores entre los 3 que se hicieron.
-- **processed/** contiene los datasets finales para entrenamiento/evaluación (coherentes con el preprocesador registrado).
+- La carpeta **preprocesador/** guarda *pipelines* de preprocesamiento para modelos entrenados.
+- **processed/** contiene datasets finales para entrenamiento y validación.
+
+---
 
 ### Código fuente (src/)
-- `config.py` — rutas, batch id, env vars
-- `reddit_client.py` — autenticación PRAW (read-only)
-- `raw_extractor.py` — descarga **as-is** a RAW
-- `bronze_transformer.py` — tipado/flatten → BRONZE
-- `silver_normalizer.py` — normalización + upsert a SQLite
-- `gold_products.py` — placeholder para KPIs/ML
-- `repo_sqlite.py` — DDL + upserts
-- `utils.py` — helpers (slugify, casts robustos)
-- `__main__.py` — CLI orquestador
+- `config.py`  
+- `reddit_client.py`  
+- `raw_extractor.py`  
+- `bronze_transformer.py`  
+- `silver_normalizer.py`  
+- `gold_products.py`  
+- `repo_sqlite.py`  
+- `utils.py`  
+- `__main__.py`  
 
 ---
 
 ## 7) Requisitos
-- **Python** ≥ 3.11
-- **uv** (gestión de entornos ultra-rápida) → https://docs.astral.sh/uv/
-- Conexión a internet (para API Reddit)
+- **Python ≥ 3.11**
+- **uv** — https://docs.astral.sh/uv/
+- API Reddit funcional
 
 ---
 
 ## 8) Instalación
 ```bash
-# 1) clona el repo
 git clone <URL-del-repo>
 cd imedia
-
-# 2) instala dependencias
 uv sync
-
-# 3) copia variables de entorno
-type .env.example > .env   # (Windows: cp .env.example .env)
+cp .env.example .env
 ```
 
-### Variables de entorno (`.env`)
+### Variables de entorno
 ```env
-REDDIT_CLIENT_ID=tu_client_id
-REDDIT_CLIENT_SECRET=tu_client_secret
-REDDIT_USER_AGENT=imedia/0.1 by <tu_usuario>
+REDDIT_CLIENT_ID=
+REDDIT_CLIENT_SECRET=
+REDDIT_USER_AGENT=imedia/0.1 by <user>
 IMEDIA_DB_PATH=db/imedia.sqlite
 IMEDIA_DATA_ROOT=data
 REDDIT_REQUEST_TIMEOUT=30
-# opcional para etiquetar corridas manualmente
-# IMEDIA_BATCH_TS=20250101_1200
-```
-
-### Test de autenticación
-```bash
-uv run python -c "from imedia.reddit_client import RedditClient; r=RedditClient().reddit; s=r.subreddit('python'); print('OK Reddit! subs:', getattr(s,'subscribers',None))"
 ```
 
 ---
 
 ## 9) Uso (CLI)
-La CLI vive en `__main__.py`. Ejecuta con `uv run python -m imedia [opciones]`.
+Ejecutar:
 
-### Modos (exclusivos)
-1. **Subreddit único**
 ```bash
-uv run python -m imedia \
-  --subreddit python \
-  --limit 50 \
-  --time-filter day \
-  --fetch-comments
-```
-2. **Descubrir N subreddits “hot”** (y descargar posts de cada uno)
-```bash
-uv run python -m imedia \
-  --discover-hot 10 \
-  --hot-strategy all_top_day \
-  --limit 30 \
-  --include-nsfw    # opcional
+uv run python -m imedia --subreddit python --limit 50 --fetch-comments
 ```
 
-### Parámetros
-| Parámetro | Tipo | Obligatorio | Default | Descripción |
-|---|---:|:---:|---:|---|
-| `--subreddit <nombre>` | str | **Mutuamente excluyente** con `--discover-hot` | — | Modo 1: ingestión de un subreddit específico. |
-| `--discover-hot <N>` | int | **Mutuamente excluyente** con `--subreddit` | — | Modo 2: descubre N subreddits “calientes” y descarga posts de cada uno. |
-| `--hot-strategy {popular,all_hot,all_top_day}` | str | No (solo aplica con `--discover-hot`) | `popular` | Cómo descubrir subreddits: `popular` (rápido), `all_hot` (zeitgeist), `all_top_day` (mejores del día). |
-| `--include-nsfw` | flag | No | `false` | Incluir subreddits NSFW en el descubrimiento. |
-| `--limit <N>` | int | No | `100` | Posts a descargar **por subreddit**. |
-| `--time-filter {hour,day,week,month,year,all}` | str | No | `day` | Ventana temporal para `top`. |
-| `--fetch-comments` | flag | No | `false` | Descarga comentarios del **primer post** en cada subreddit del lote. |
+Modo “discover-hot”:
 
-> **Nota**: `--fetch-comments` actualmente trae **solo** el primer post de cada subreddit. Un flag `--all-comments` puede añadirse en el roadmap.
-
-### Ejemplos útiles
-- Top 20 `machinelearning` última semana con comentarios del primer post:
 ```bash
-uv run python -m imedia --subreddit machinelearning --limit 20 --time-filter week --fetch-comments
-```
-- Descubrir 15 subreddits por popularidad e ingerir 40 posts por cada uno:
-```bash
-uv run python -m imedia --discover-hot 15 --hot-strategy popular --limit 40
+uv run python -m imedia --discover-hot 10 --hot-strategy all_top_day --limit 30
 ```
 
 ---
 
 ## 10) Salidas esperadas
-- **RAW**: NDJSON por origen (no se pisa). Ej: `data/raw/reddit/posts/part-<batch>-python.ndjson`.
-- **BRONZE**: Parquet particionado por `YYYY/MM/DD` (posts/comments) + archivos únicos por sub/post.
-- **SILVER**: `dim_*.parquet`, `fact_*.parquet` y **SQLite** poblado (`db/imedia.sqlite`).
+- RAW → NDJSON  
+- BRONZE → Parquet  
+- SILVER → dims + facts + SQLite  
 
 ---
 
-## 11) Verificación rápida (post-run)
-```bash
-# conteos en SQLite
-uv run python - <<'PY'
-import sqlite3
-con = sqlite3.connect('db/imedia.sqlite')
-for t in ('subreddits','authors','posts','comments'):
-    try:
-        n = con.execute(f'SELECT count(*) FROM {t}').fetchone()[0]
-        print(t, n)
-    except Exception as e:
-        print(t, 'no existe:', e)
-PY
-```
-```bash
-# inspeccionar SILVER
-uv run python - <<'PY'
-import polars as pl
-p = pl.read_parquet('data/silver/reddit/fact_posts.parquet')
-print('subs distintos:', p.select('subreddit').n_unique())
-print('total posts:', p.height)
-print(p.select('subreddit').unique().head(15))
-PY
-```
+## 11) Verificación rápida
+Consultas a SQLite + revisión de archivos Parquet.
 
 ---
 
 ## 12) Solución de problemas comunes
-- **`ValueError: Faltan variables en .env`** → Completa `REDDIT_CLIENT_ID/SECRET/USER_AGENT`.
-- **`OAuthException`** (PRAW) → Verifica que tu app de Reddit sea de tipo **script** y que el secret sea correcto.
-- **Timeouts** → Aumenta `REDDIT_REQUEST_TIMEOUT` (ej. 60) o reduce `--limit` y la cantidad de subreddits.
+Errores de `.env`, OAuth, timeouts, etc.
 
 ---
 
-## 13) Roadmap (sujeto a cambios)
-- `--all-comments` (comentarios de todos los posts del lote)
-- Capa **GOLD**: KPIs (7d/24h), engagement por hora, features para modelos
-- Integración **LLMs**: Q&A sobre corpus, resúmenes temáticos
-- Más fuentes: X/Threads/Facebook (cuando políticas y APIs lo permitan)
-- Export a **DuckDB/ADBC** y/o formatos **Delta/Iceberg** para datasets grandes
-- Tests `pytest` + `ruff` 
+## 13) Roadmap
+- full comments  
+- capa GOLD  
+- LLM Q&A  
+- Integración X/Threads/Facebook  
+- DuckDB/ADBC  
+- tests y ruff  
 
 ---
 
-### Créditos
-- **PRAW**, **Polars**, **uv** y comunidad OSS ❤️
+# ⭐ **14) Reproducción completa del proyecto (entorno, pipeline, inferencia)**  
+*(Sección agregada para cumplir con requisitos académicos)*  
 
+Esta sección explica cómo **correr IMEDIA desde cero**, **ejecutar el pipeline**, y **realizar inferencias** con los modelos de sentimiento.
+
+---
+
+## **14.1 Crear el entorno**
+```bash
+git clone <repo>
+cd IMEDIA_PROJECT_V2
+
+# crea el entorno y sincroniza dependencias
+uv sync
+
+# activa uv (no requiere venv manual)
+uv run python --version
+```
+
+---
+
+## **14.2 Configurar credenciales**
+En `.env`:
+
+```env
+REDDIT_CLIENT_ID=xxxx
+REDDIT_CLIENT_SECRET=xxxx
+REDDIT_USER_AGENT=imedia/0.1 by <usuario>
+IMEDIA_DATA_ROOT=data
+IMEDIA_DB_PATH=db/imedia.sqlite
+```
+
+Validar autenticación:
+
+```bash
+uv run python - <<'PY'
+from imedia.reddit_client import RedditClient
+r = RedditClient().reddit
+s = r.subreddit("python")
+print("OK Reddit:", s.subscribers)
+PY
+```
+
+---
+
+## **14.3 Ejecutar todo el pipeline RAW → BRONZE → SILVER**
+### Ingesta de ejemplo:
+```bash
+uv run python -m imedia \
+    --subreddit python \
+    --limit 50 \
+    --time-filter day \
+    --fetch-comments
+```
+
+### Discover-hot:
+```bash
+uv run python -m imedia \
+    --discover-hot 10 \
+    --hot-strategy all_top_day \
+    --limit 40
+```
+
+Esto poblará:
+```
+data/raw/
+data/bronze/
+data/silver/
+db/imedia.sqlite
+```
+
+---
+
+## **14.4 Generar datasets limpios para NLP (processed/)**
+Abre el notebook:
+
+```
+notebooks/02_data_wrangling.ipynb
+```
+
+Ejecuta todas las celdas y se generarán:
+
+```
+data/processed/sentiment_train.parquet
+data/processed/sentiment_val.parquet
+data/processed/sentiment_test.parquet
+```
+
+---
+
+## **14.5 Entrenar modelos y registrar en MLflow**
+### Ejecutar el flow Prefect completo
+```bash
+# (opcional)
+prefect server start
+
+# flow de entrenamiento
+uv run src/pipelines/train_pipeline.py
+```
+
+El pipeline ejecuta:
+
+1. BERT zero-shot eval  
+2. SentenceTransformer embeddings  
+3. HPO (Hyperopt) para MLP  
+4. Entrenamiento final  
+5. Registro en Databricks UC (alias `champion`)  
+6. Tabla comparativa impresa al final  
+
+---
+
+## **14.6 Levantar el backend de inferencia (FastAPI)**
+Desde `src/backend`:
+
+```bash
+uv run uvicorn api:app --reload --port 8000
+```
+
+Probar:
+
+```bash
+curl http://127.0.0.1:8000/health
+```
+
+Inferencia:
+
+```bash
+curl -X POST http://127.0.0.1:8000/api/v1/predict-sentiment \
+    -H "Content-Type: application/json" \
+    -d '{"text":"I love this project!", "model_key":"mlp_transformer"}'
+```
+
+---
+
+## **14.7 Ejecutar la UI (Streamlit)**
+
+Desde `src/frontend`:
+
+```bash
+uv run streamlit run main.py
+```
+
+Interfaz disponible en:
+
+```
+http://localhost:8501
+```
+
+La UI permite:
+- Escribir texto
+- Elegir modelo (MLP o BERT)
+- Enviar al backend
+- Ver etiqueta, score y JSON completo
+
+---
+
+## **14.8 Contenerización y despliegue**
+### Backend
+```bash
+docker build -t imedia-api -f src/backend/Dockerfile .
+docker run -p 8000:8000 imedia-api
+```
+
+### Frontend
+```bash
+docker build -t imedia-ui -f src/frontend/Dockerfile .
+docker run -p 8501:8501 imedia-ui
+```
+
+### Compose
+(`docker-compose.yaml`)
+```bash
+docker compose up --build
+```
+
+---
+
+## **14.9 Inferencia desde cualquier cliente**
+Ejemplo en Python:
+
+```python
+import requests
+
+payload = {
+    "text": "This tool is extremely helpful!",
+    "model_key": "mlp_transformer"
+}
+
+res = requests.post(
+    "http://localhost:8000/api/v1/predict-sentiment",
+    json=payload
+)
+print(res.json())
+```
+
+---
+
+# ✔️ FIN DEL README (COMPLETO Y ACTUALIZADO)
