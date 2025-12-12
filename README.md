@@ -392,4 +392,3 @@ print(res.json())
 
 ---
 
-# ✔️ FIN DEL README (COMPLETO Y ACTUALIZADO)
